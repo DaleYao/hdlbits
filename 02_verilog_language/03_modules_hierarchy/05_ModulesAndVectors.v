@@ -27,3 +27,8 @@ module top_module ( //—” ±
           
     multiplexer plx(.sel(sel),.data({q3,q2,q1,d}),.out(q));
 endmodule
+
+module my_dff8(input clk, input [7:0] d, output reg [7:0] q);
+    always @(posedge clk)
+        q <= d;
+endmodule
