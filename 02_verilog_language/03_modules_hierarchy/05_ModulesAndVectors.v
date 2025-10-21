@@ -1,3 +1,6 @@
+`timescale 1ns/1ps
+
+
 module multiplexer(//多路选择器，一个自认为很不错的写法
     input [1:0] sel,
     input [31:0] data,
@@ -34,7 +37,6 @@ module my_dff8(input clk, input [7:0] d, output reg [7:0] q);
 endmodule
 
 
-`timescale 1ns/1ps
 
 module tb_top_module;
 
