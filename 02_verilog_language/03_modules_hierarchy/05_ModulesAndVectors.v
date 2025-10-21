@@ -32,3 +32,50 @@ module my_dff8(input clk, input [7:0] d, output reg [7:0] q);
     always @(posedge clk)
         q <= d;
 endmodule
+
+
+`timescale 1ns/1ps
+
+module tb_top_module;
+
+    reg clk;
+    reg [7:0] d;
+    reg [1:0] sel;
+    wire [7:0] q;
+
+    // 实例化待测模块
+    top_module uut (
+        .clk(clk),
+        .d(d),
+        .sel(sel),
+        .q(q)
+    );
+
+    // 时钟：10ns周期（100MHz）
+    initial clk = 0;
+    always #5 clk = ~clk;
+
+    // 激励
+    initial begin
+        // 初始值
+        d = 8'h00;
+        sel = 2'b00;
+
+        // 模拟输入序列
+        repeat(2) @(posedge clk);   d = 8'hA1;
+        repeat(1) @(posedge clk);   d = 8'hB2;
+        repeat(1) @(posedge clk);   d = 8'hC3;
+        repeat(1) @(posedge clk);   d = 8'hD4;
+        repeat(1) @(posedge clk);   d = 8'hE5;
+
+        // 测不同延迟的输出
+        repeat(1) @(posedge clk); sel = 2'b00;  // 输出 d（无延迟）
+        repeat(4) @(posedge clk); sel = 2'b01;  // 输出 q1（延迟1拍）
+        repeat(4) @(posedge clk); sel = 2'b10;  // 输出 q2（延迟2拍）
+        repeat(4) @(posedge clk); sel = 2'b11;  // 输出 q3（延迟3拍）
+
+        repeat(5) @(posedge clk);
+        $finish;
+    end
+
+endmodule
