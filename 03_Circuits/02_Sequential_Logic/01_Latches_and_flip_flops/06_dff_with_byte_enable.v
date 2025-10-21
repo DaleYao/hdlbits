@@ -13,6 +13,7 @@ module top_module (
                 begin:assignpart
                     if(byteena[1])	q[15:8]	<=	d[15:8]	;
                     if(byteena[0])	q[7:0]	<=	d[7:0]	;
+                    //If enable not on, keep the status, not reset the status.
                 end
         end
 
