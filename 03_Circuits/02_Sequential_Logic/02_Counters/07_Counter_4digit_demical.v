@@ -5,8 +5,13 @@ module top_module (
     output [15:0] q);
 
     assign  ena[1]  =   q[3:0]==4'd9;
-    assign  ena[2]  =   (q[7:4]==4'd9)  ?   ena[1]:0;
-    assign  ena[3]  =   (q[11:8]==4'd9) ?   ena[2]:0;
+    //assign  ena[2]  =   (q[7:4]==4'd9)  ?   ena[1]:0;
+    //assign  ena[3]  =   (q[11:8]==4'd9) ?   ena[2]:0;
+    //Not good enough.
+
+    assign  ena[2]  =   ena[1]  &&  (q[7:4]==4'd9);
+    assign  ena[3]  =   ena[2]  &&  (q[11:8]==4'd9);
+
 
     always@(posedge clk)
     begin
