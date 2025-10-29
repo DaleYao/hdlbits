@@ -15,6 +15,24 @@ module top_module(
     output reg  [7:0] mm,
     output reg  [7:0] ss); 
 
+    wire[7:0] addss,addmm,addhh;
+
+    BCD_Add_1   Add_mm(
+        .d(mm),
+        .out(addmm)
+    );
+
+    BCD_Add_1   Add_ss(
+        .d(ss),
+        .out(addss)
+    );
+
+    BCD_Add_1   Add_hh(
+        .d(hh),
+        .out(addhh)
+    );
+
+
     always@(posedge clk)
     begin
         
@@ -41,7 +59,8 @@ module top_module(
                     if(hh>8'h11)
                         hh<=8'h1;//Once wrote "hm" here, honestly! 
                     else
-                    begin
+                        hh<=addhh;
+                    /*begin
                         
                         if(hh[3:0]==4'd9)
                         begin
@@ -51,7 +70,7 @@ module top_module(
 
                         else    hh[3:0]<=hh[3:0]+4'b1;//So stupid: once wrote "+4'b0 "here.
 
-                    end
+                    end*/
 
                     if(hh==8'h11)
                         pm<=!pm;
@@ -59,7 +78,8 @@ module top_module(
                 end
 
                 else
-                begin
+                    mm<=addmm;
+                /*begin
                         
                     if(mm[3:0]==4'd9)
                     begin
@@ -69,26 +89,34 @@ module top_module(
 
                     else    mm[3:0]<=mm[3:0]+4'b1;//and same here.
 
-                end
+                end*/
 
             end
 
             else
-            begin
-                
-                if(ss[3:0]==4'd9)   
-                begin
-                    ss[3:0]<=4'b0;
-                    ss[7:4]<=ss[7:4]+4'b1;
-                end
-
-                else    ss[3:0]<=ss[3:0]+4'b1;//here i was right about 1'b1, but wrote "ss[7:4]"...quite funny huh? correct here, and error there. feels so good.
-
-            end
-
+                ss<=addss;
 
         end
             
+    end
+
+endmodule
+
+module  BCD_Add_1(
+    input[7:0]  d,
+    output[7:0] out
+);
+
+    always@(*)
+    begin
+        if(d[3:0]==4'h9)
+        begin
+            out[3:0]=4'h0;
+            out[7:4]=d[7:4]+4'h1;//After getting used to sequential logic, i've forgot that there is no such thing like q=q+1.
+        end
+
+        else
+            out=d+4'h1;//Here we come again, don't forget about the latch issues!
     end
 
 endmodule
