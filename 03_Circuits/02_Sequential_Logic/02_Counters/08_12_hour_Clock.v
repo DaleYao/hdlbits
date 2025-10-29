@@ -3,7 +3,7 @@
 //I am stupid, I am stupid.
 //And also blind. shame. pity that i have eyes. Should've donate them.
 
-//Miracle. countlessly spell and minor logical mistakes, blind eyes, and only one success within JUST 9 trials, with success rate up to 11%. feels soooo good.
+//Miracle. countlessly spell and minor logical mistakes, blind eyes, and only one success within JUST 9 trials, with success rate up to 11%. feels soooo good that i just want to throw this shit out of my domitory.
 
 
 module top_module(
