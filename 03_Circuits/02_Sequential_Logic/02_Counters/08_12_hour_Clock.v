@@ -120,3 +120,6 @@ module  BCD_Add_1(
     end
 
 endmodule
+
+//After all these things, I'd say that a better version is to seperately write three modules for ss, mm and hh, each module with enable input and carry_on output, 
+//and instantiate all 3 of them in the top module. 
