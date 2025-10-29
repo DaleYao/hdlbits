@@ -38,7 +38,7 @@ endmodule
 
 module  BCD_Add_1(
     input[7:0]  d,
-    output[7:0] out
+    output[7:0] reg out
 );
 
     always@(*)
@@ -50,7 +50,7 @@ module  BCD_Add_1(
         end
 
         else
-            out=d+8'h1;//Here we come again, don't forget about the latch issues!
+            out=d+8'h01;//Here we come again, don't forget about the latch issues!
     end
 
 endmodule
@@ -72,12 +72,12 @@ module count_sm(
 
     always@(posedge clk)
     begin
-        if(reset)   sm<=8'h0;
+        if(reset)   sm<=8'h00;
 
         else if(en)
         begin
             
-            if(sm>8'h58)    sm<=8'h0;
+            if(sm>8'h58)    sm<=8'h00;
             else            sm<=temp;
 
         end
