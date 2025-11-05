@@ -4,15 +4,18 @@ module top_module(
     output [3:0] next_state,
     output out); //
 
-    parameter A=0, B=1, C=2, D=3;
+    localparam [1:0]    index_A=2'd0, 
+                        index_B=2'd1, 
+                        index_C=2'd2,
+                        index_D=2'd3;
 
-    // State transition logic: Derive an equation for each state flip-flop.
-    assign next_state[A] = state[A]&&!in  ||state[C]&&!in;
-    assign next_state[B] = state[A]&&in   ||state[B]&&in    ||state[D]&&in;
-    assign next_state[C] = state[B]&&!in  ||state[D]&&!in;
-    assign next_state[D] = state[C]&&in;
+    // State transition logic: index_Derive an equation for each state flip-flop.
+    assign next_state[index_A] = state[index_A]&&!in  ||state[index_C]&&!in;
+    assign next_state[index_B] = state[index_A]&&in   ||state[index_B]&&in    ||state[index_D]&&in;
+    assign next_state[index_C] = state[index_B]&&!in  ||state[index_D]&&!in;
+    assign next_state[index_D] = state[index_C]&&in;
 
     // Output logic: 
-    assign out = state[D];
+    assign out = state[index_D];
 
 endmodule
